@@ -774,5 +774,6 @@ extension AssetsPhotoViewController: UIViewControllerPreviewingDelegate {
     @available(iOS 9.0, *)
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         logi("viewControllerToCommit: \(type(of: viewControllerToCommit))")
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
