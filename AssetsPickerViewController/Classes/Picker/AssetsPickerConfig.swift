@@ -12,7 +12,7 @@ import Photos
 open class AssetsPickerConfig {
     
     // MARK: - Album Config
-
+    
     /// Set selected album at initial load.
     open var albumDefaultType: PHAssetCollectionSubtype = .smartAlbumUserLibrary
     /// true: shows empty albums, false: hides empty albums
@@ -21,7 +21,7 @@ open class AssetsPickerConfig {
     open var albumIsShowHiddenAlbum: Bool = false
     /// Customize your own album list by providing filter block below.
     open var albumFilter: [
-        PHAssetCollectionType: ((PHAssetCollection, PHFetchResult<PHAsset>) -> Bool)
+    PHAssetCollectionType: ((PHAssetCollection, PHFetchResult<PHAsset>) -> Bool)
     ]?
     
     /// Not yet fully implemeted, do not set this true until it's completed.
@@ -74,6 +74,7 @@ open class AssetsPickerConfig {
     // MARK: Asset
     open var selectedAssets: [PHAsset]?
     open var assetsMinimumSelectionCount: Int = 1
+    open var assetsMaximumSelectionCount: Int = 5
     open var assetsIsScrollToBottom: Bool = true
     
     // MARK: Fetch

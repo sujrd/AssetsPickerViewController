@@ -18,9 +18,18 @@ public protocol AssetsPhotoCellProtocol {
     var imageView: UIImageView { get }
     var count: Int { set get }
     var duration: TimeInterval { set get }
+    var cellIndex: IndexPath  { set get }
+    var assetsPhotoControllerDelegate: AssetsPhotoControllerDelegate? { set get }
 }
 
-open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol {
+public protocol AssetsPhotoControllerDelegate {
+    func bigCellSelected(withAsset asset: PHAsset)
+    func smallCheckSelected(withAsset asset: PHAsset, andIndex indexPath: IndexPath, isSelected selected: Bool)
+    func canSelectAsset()-> Bool
+}
+open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol, UIGestureRecognizerDelegate {
+    
+    var delegate: AssetsPhotoControllerDelegate?
     
     // MARK: - AssetsPhotoCellProtocol
     open var asset: PHAsset? {
@@ -63,6 +72,18 @@ open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol {
         }
     }
     
+    open var cellIndex: IndexPath = IndexPath(item: 0, section: 0) {
+        didSet {
+        }
+    }
+    
+    open var assetsPhotoControllerDelegate: AssetsPhotoControllerDelegate? {
+        didSet {
+            self.delegate = assetsPhotoControllerDelegate
+        }
+    }
+    
+    
     // MARK: - Views
     private var didSetupConstraints: Bool = false
     
@@ -82,7 +103,8 @@ open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol {
     
     private let overlay: AssetsPhotoCellOverlay = {
         let overlay = AssetsPhotoCellOverlay.newAutoLayout()
-        overlay.isHidden = true
+        overlay.isHidden = false
+        overlay.checkmark.isChecked = false
         return overlay
     }()
     
@@ -121,7 +143,9 @@ open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol {
             panoramaIconView.autoPinEdge(.trailing, to: .trailing, of: contentView, withOffset: -6.5)
             panoramaIconView.autoPinEdge(.bottom, to: .bottom, of: contentView, withOffset: -10)
             
-            overlay.autoPinEdgesToSuperviewEdges()
+            overlay.autoPinEdge(.trailing, to: .trailing, of: contentView, withOffset: 0)
+            overlay.autoPinEdge(.top, to: .top, of: contentView, withOffset: 0)
+            overlay.autoSetDimensions(to: CGSize(width: 30, height: 30))
             
             didSetupConstraints = true
         }
@@ -132,6 +156,30 @@ open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol {
         super.layoutSubviews()
         if isVideo {
             imageView.setGradient(.fromBottom, start: 0, end: 0.2, startAlpha: 0.75, color: .black)
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tap.delegate = self
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc public func handleTap(tap: UITapGestureRecognizer)
+    {
+        if (UIGestureRecognizerState.ended == tap.state) {
+            let pointInCell = tap.location(in: self)
+            if (self.overlay.frame.contains(pointInCell)) {
+                // user tapped overlay
+                if !overlay.checkmark.isChecked && !(delegate?.canSelectAsset())! {
+                    return
+                }
+                delegate?.smallCheckSelected(withAsset: asset!, andIndex: cellIndex, isSelected: overlay.checkmark.isChecked)
+                overlay.checkmark.isChecked = !overlay.checkmark.isChecked
+            } else {
+                // user tapped cell
+                delegate?.bigCellSelected(withAsset: asset!)
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ import Photos
 // MARK: - AssetsPickerViewController
 open class AssetsPickerViewController: UINavigationController {
     
+    @objc open var maximumNumberOfAssets: Int = 5
     @objc open weak var pickerDelegate: AssetsPickerViewControllerDelegate?
     @objc open var selectedAssets: [PHAsset] {
         return photoViewController.selectedAssets
@@ -40,6 +41,7 @@ open class AssetsPickerViewController: UINavigationController {
         } else {
             config = AssetsPickerConfig().prepare()
         }
+        config.assetsMaximumSelectionCount = maximumNumberOfAssets
         self.pickerConfig = config
         AssetsManager.shared.pickerConfig = config
         return AssetsPhotoViewController(pickerConfig: config)

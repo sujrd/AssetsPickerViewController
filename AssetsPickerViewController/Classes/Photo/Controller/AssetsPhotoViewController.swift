@@ -519,7 +519,7 @@ extension AssetsPhotoViewController: UIScrollViewDelegate {
 
 // MARK: - UICollectionViewDelegate
 extension AssetsPhotoViewController: UICollectionViewDelegate {
-
+    
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if let delegate = self.delegate {
             return delegate.assetsPicker?(controller: picker, shouldSelect: AssetsManager.shared.assetArray[indexPath.row], at: indexPath) ?? true
@@ -566,6 +566,8 @@ extension AssetsPhotoViewController: UICollectionViewDataSource {
             logw("Failed to cast UICollectionViewCell.")
             return cell
         }
+        photoCell.cellIndex = indexPath
+        photoCell.assetsPhotoControllerDelegate = self
         photoCell.isVideo = AssetsManager.shared.assetArray[indexPath.row].mediaType == .video
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()
@@ -757,6 +759,37 @@ extension AssetsPhotoViewController: AssetsManagerDelegate {
     }
 }
 
+// MARK:- UIViewControllerPreviewingDelegate
+extension AssetsPhotoViewController: AssetsPhotoControllerDelegate {
+    public func bigCellSelected(withAsset asset: PHAsset) {
+        let previewController = AssetsPreviewController()
+        previewController.asset = asset
+        navigationController?.pushViewController(previewController, animated: true)
+    }
+    
+    public func smallCheckSelected(withAsset asset: PHAsset, andIndex indexPath: IndexPath, isSelected selected: Bool) {
+        
+        if selected {
+            deselect(asset: asset, at: indexPath)
+            updateNavigationStatus()
+            delegate?.assetsPicker?(controller: picker, didDeselect: asset, at: indexPath)
+        } else {
+            select(asset: asset, at: indexPath)
+            updateNavigationStatus()
+            delegate?.assetsPicker?(controller: picker, didSelect: asset, at: indexPath)
+        }
+        
+    }
+    
+    public func canSelectAsset() -> Bool {
+        if selectedAssets.count >= AssetsManager.shared.pickerConfig.assetsMaximumSelectionCount {
+            return false
+        }
+        return true
+    }
+    
+    
+}
 // MARK - UIViewControllerPreviewingDelegate
 @available(iOS 9.0, *)
 extension AssetsPhotoViewController: UIViewControllerPreviewingDelegate {
