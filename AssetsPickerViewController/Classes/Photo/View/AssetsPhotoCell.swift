@@ -51,7 +51,7 @@ open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol, UIGes
     }
     
     open override var isSelected: Bool {
-        didSet { overlay.isHidden = !isSelected }
+        didSet { overlay.checkmark.isChecked = isSelected }
     }
     
     open let imageView: UIImageView = {

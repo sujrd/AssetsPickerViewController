@@ -582,6 +582,7 @@ extension AssetsPhotoViewController: UICollectionViewDataSource {
         
         let asset = AssetsManager.shared.assetArray[indexPath.row]
         photoCell.asset = asset
+        photoCell.isSelected = false
         photoCell.isVideo = asset.mediaType == .video
         if photoCell.isVideo {
             photoCell.duration = asset.duration
@@ -591,6 +592,7 @@ extension AssetsPhotoViewController: UICollectionViewDataSource {
             // update cell UI as selected
             if let targetIndex = selectedArray.index(of: selectedAsset) {
                 photoCell.count = targetIndex + 1
+                photoCell.isSelected = true
             }
         }
         
