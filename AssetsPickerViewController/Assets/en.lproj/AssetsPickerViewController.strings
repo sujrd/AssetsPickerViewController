@@ -3,7 +3,7 @@
 "Cancel" = "Cancel";
 "Done" = "Done";
 "Ok" = "Ok";
-"Error" = "Error";
+"ERROR" = "Error";
 
 /* Albums */
 "Title_Albums" = "Albums";
