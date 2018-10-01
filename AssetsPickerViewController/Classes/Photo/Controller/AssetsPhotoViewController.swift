@@ -783,8 +783,14 @@ extension AssetsPhotoViewController: AssetsPhotoControllerDelegate {
         
     }
     
-    public func canSelectAsset() -> Bool {
+    public func canSelectAsset(asset: PHAsset) -> Bool {
         if selectedAssets.count >= AssetsManager.shared.pickerConfig.assetsMaximumSelectionCount {
+            return false
+        }
+        if asset.mediaType == .video && asset.duration > 300 {
+            let alert = UIAlertController(title: "ERROR", message: String(key: "VIDEO_TOO_LONG"), preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return false
         }
         return true

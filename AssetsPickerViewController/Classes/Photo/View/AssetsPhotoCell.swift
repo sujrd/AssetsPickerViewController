@@ -25,7 +25,7 @@ public protocol AssetsPhotoCellProtocol {
 public protocol AssetsPhotoControllerDelegate {
     func bigCellSelected(withAsset asset: PHAsset)
     func smallCheckSelected(withAsset asset: PHAsset, andIndex indexPath: IndexPath, isSelected selected: Bool)
-    func canSelectAsset()-> Bool
+    func canSelectAsset(asset: PHAsset)-> Bool
 }
 open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol, UIGestureRecognizerDelegate {
     
@@ -171,7 +171,7 @@ open class AssetsPhotoCell: UICollectionViewCell, AssetsPhotoCellProtocol, UIGes
             let pointInCell = tap.location(in: self)
             if (self.overlay.frame.contains(pointInCell)) {
                 // user tapped overlay
-                if !overlay.checkmark.isChecked && !(delegate?.canSelectAsset())! {
+                if !overlay.checkmark.isChecked && !(delegate?.canSelectAsset(asset: asset!))! {
                     return
                 }
                 delegate?.smallCheckSelected(withAsset: asset!, andIndex: cellIndex, isSelected: overlay.checkmark.isChecked)

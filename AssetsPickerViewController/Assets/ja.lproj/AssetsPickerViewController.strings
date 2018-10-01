@@ -2,6 +2,8 @@
 /* Common */
 "Cancel" = "キャンセル";
 "Done" = "完了";
+"Ok" = "Ok";
+"ERROR" = "エラー";
 
 /* Albums */
 "Title_Albums" = "アルバム";
@@ -27,3 +29,4 @@
 /* No Permission */
 "Title_No_Permission" = "このアプリはあなたの写真と動画へアクセスする許可を得ていません。";
 "Message_No_Permission" = "「プライバシー設定」からアクセスを許可できます。";
+"VIDEO_TOO_LONG" = "5分以上ビデオをアップロードすることはできません。";

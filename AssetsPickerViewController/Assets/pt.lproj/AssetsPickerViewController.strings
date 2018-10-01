@@ -2,6 +2,8 @@
 /* Common */
 "Cancel" = "Cancelar";
 "Done" = "Feito";
+"Ok" = "Está bem";
+"ERROR" = "Erro";
 
 /* Albums */
 "Title_Albums" = "Álbumes";
@@ -27,3 +29,4 @@
 /* No Permission */
 "Title_No_Permission" = "Este aplicativo não tem acesso às suas fotos ou vídeos.";
 "Message_No_Permission" = "Você pode ativar o acesso em configurações de privacidade.";
+"VIDEO_TOO_LONG" = "Você não pode enviar um vídeo por mais de 5 minutos.";

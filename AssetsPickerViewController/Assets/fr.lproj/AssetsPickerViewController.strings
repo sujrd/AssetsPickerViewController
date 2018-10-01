@@ -2,6 +2,7 @@
 /* Common */
 "Cancel" = "Annuler";
 "Done" = "Valider";
+"Ok" = "D'accord";
 
 /* Albums */
 "Title_Albums" = "Albums";
@@ -27,3 +28,4 @@
 /* No Permission */
 "Title_No_Permission" = "Cette application n'a pas accès à vos photos et vos vidéos.";
 "Message_No_Permission" = "Vous pouvez autoriser l'accès dans l'application Réglages > Confidentialité.";
+"VIDEO_TOO_LONG" = "Vous ne pouvez pas télécharger une vidéo plus de 5 minutes.";

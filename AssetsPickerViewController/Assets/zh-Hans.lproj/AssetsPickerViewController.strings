@@ -2,6 +2,8 @@
 /* Common */
 "Cancel" = "取消";
 "Done" = "完成";
+"Ok" = "确定";
+"ERROR" = "錯誤";
 
 /* Albums */
 "Title_Albums" = "相册";
@@ -27,3 +29,4 @@
 /* No Permission */
 "Title_No_Permission" = "此应用程序对您的照片或视频没有访问权。";
 "Message_No_Permission" = "您可以在隐私设置中启用访问权。";
+"VIDEO_TOO_LONG" = "您无法上传视频超过5分钟。";

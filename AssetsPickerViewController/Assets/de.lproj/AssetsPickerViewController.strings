@@ -2,6 +2,8 @@
 /* Common */
 "Cancel" = "Abbrechen";
 "Done" = "Fertig";
+"Ok" = "Ok";
+"ERROR" = "Fehler";
 
 /* Albums */
 "Title_Albums" = "Alben";
@@ -27,3 +29,4 @@
 /* No Permission */
 "Title_No_Permission" = "Diese App darf nicht auf Ihr Fotoalbum zugreifen.";
 "Message_No_Permission" = "Sie können den Zugriff in den Datenschutz Einstellungen erlauben.";
+"VIDEO_TOO_LONG" = "Je kunt een video niet langer dan 5 minuten uploaden.";
