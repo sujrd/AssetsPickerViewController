@@ -788,8 +788,8 @@ extension AssetsPhotoViewController: AssetsPhotoControllerDelegate {
             return false
         }
         if asset.mediaType == .video && asset.duration > 300 {
-            let alert = UIAlertController(title: "ERROR", message: String(key: "VIDEO_TOO_LONG"), preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: String(key: "ERROR"), message: String(key: "VIDEO_TOO_LONG"), preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: String(key: "Ok"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return false
         }
