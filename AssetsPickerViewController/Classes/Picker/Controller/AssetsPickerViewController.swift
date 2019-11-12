@@ -44,6 +44,7 @@ open class AssetsPickerViewController: UINavigationController {
         config.assetsMaximumSelectionCount = maximumNumberOfAssets
         self.pickerConfig = config
         AssetsManager.shared.pickerConfig = config
+        self.modalPresentationStyle = .fullScreen
         return AssetsPhotoViewController(pickerConfig: config)
     }()
     
